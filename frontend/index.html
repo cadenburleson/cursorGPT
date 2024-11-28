@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <form id="chatForm">
+        <label for="input1">Your Skills and Background</label>
+        <input type="text" id="input1" placeholder="Enter your skills and expertise">
+
+        <label for="input2">Secondary Goal</label>
+        <input type="text" id="input2" placeholder="Enter your secondary goal">
+
+        <label for="input3">Target Customer Description</label>
+        <input type="text" id="input3" placeholder="Describe your ideal customer">
+
+        <label for="input4">Additional Requirements</label>
+        <input type="text" id="input4" placeholder="Any other specific requirements">
+
+        <button type="submit">Generate Business Ideas</button>
+    </form>
+    <div id="loadingSpinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
+        <p>Generating business ideas...</p>
+    </div>
+    <div id="response"></div>
+
+    <script src="/scripts/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#response {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 100px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.markdown-response {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    white-space: pre-wrap;
+}
+
+.markdown-response h1,
+.markdown-response h2,
+.markdown-response h3 {
+    color: #2c3e50;
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+.markdown-response table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.markdown-response th,
+.markdown-response td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.markdown-response th {
+    background-color: #f1f1f1;
+}
+
+.markdown-response tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.markdown-response ul,
+.markdown-response ol {
+    padding-left: 24px;
+    margin: 16px 0;
+}
+
+.markdown-response li {
+    margin: 8px 0;
+}
+
+.markdown-response code {
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.markdown-response pre {
+    background-color: #f0f0f0;
+    padding: 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.markdown-response blockquote {
+    border-left: 4px solid #ddd;
+    margin: 16px 0;
+    padding-left: 16px;
+    color: #666;
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.loading-spinner p {
+    margin-top: 10px;
+    color: #666;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
