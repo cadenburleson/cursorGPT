@@ -76,19 +76,27 @@ export default {
     async fetch(request, env, ctx) {
         try {
             const url = new URL(request.url);
+            console.log('Incoming request:', {
+                method: request.method,
+                url: url.toString(),
+                pathname: url.pathname
+            });
 
             // Handle API requests first
             if (url.pathname.startsWith('/api/')) {
+                console.log('Routing to API handler');
                 return handleApiRequest(request, env);
             }
 
             // Then try to serve static assets
+            console.log('Serving static asset');
             return await getAssetFromKV({
                 request,
                 waitUntil: ctx.waitUntil.bind(ctx),
                 env,
             });
         } catch (error) {
+            console.error('Main handler error:', error);
             return new Response(`Error: ${error.message}`, { status: 500 });
         }
     }
@@ -110,6 +118,7 @@ async function handleApiRequest(request, env) {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                'Access-Control-Max-Age': '86400'
             }
         });
     }
@@ -120,6 +129,7 @@ async function handleApiRequest(request, env) {
         try {
             const body = await request.json();
             console.log('Request body:', body);
+            const { inputs } = body;
 
             // Make request to OpenAI
             console.log('Making request to OpenAI API');
@@ -133,7 +143,7 @@ async function handleApiRequest(request, env) {
                     model: "gpt-3.5-turbo",
                     messages: [{
                         role: "user",
-                        content: `${BASE_PROMPT}\n${Object.entries(inputs)
+                        content: `${BASE_PROMPT}\n${Object.entries(inputs || {})
                             .map(([key, value]) => `${key}: ${value}`)
                             .join('\n')}`
                     }]
@@ -147,7 +157,9 @@ async function handleApiRequest(request, env) {
             return new Response(JSON.stringify({ message: data.choices[0].message.content }), {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization'
                 }
             });
         } catch (error) {
