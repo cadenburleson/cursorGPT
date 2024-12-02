@@ -96,13 +96,33 @@ export default {
 
 async function handleApiRequest(request, env) {
     const url = new URL(request.url);
+    console.log('API Request received:', {
+        method: request.method,
+        path: url.pathname,
+        headers: Object.fromEntries(request.headers)
+    });
 
+    // Handle CORS preflight requests FIRST
+    if (request.method === 'OPTIONS') {
+        console.log('Handling OPTIONS preflight request');
+        return new Response(null, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            }
+        });
+    }
+
+    // Then handle the actual request
     if (url.pathname === '/api/chat' && request.method === 'POST') {
+        console.log('Handling POST request to /api/chat');
         try {
             const body = await request.json();
-            const { inputs } = body;
+            console.log('Request body:', body);
 
             // Make request to OpenAI
+            console.log('Making request to OpenAI API');
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -120,7 +140,9 @@ async function handleApiRequest(request, env) {
                 })
             });
 
+            console.log('OpenAI API response status:', response.status);
             const data = await response.json();
+            console.log('OpenAI API response data:', data);
 
             return new Response(JSON.stringify({ message: data.choices[0].message.content }), {
                 headers: {
@@ -129,6 +151,7 @@ async function handleApiRequest(request, env) {
                 }
             });
         } catch (error) {
+            console.error('Error in handleApiRequest:', error);
             return new Response(JSON.stringify({ error: error.message }), {
                 status: 500,
                 headers: {
@@ -139,16 +162,6 @@ async function handleApiRequest(request, env) {
         }
     }
 
-    // Handle CORS preflight requests
-    if (request.method === 'OPTIONS') {
-        return new Response(null, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            }
-        });
-    }
-
+    console.log('Request did not match any handlers');
     return new Response('Not Found', { status: 404 });
 } 
