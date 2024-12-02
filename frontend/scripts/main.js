@@ -67,4 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
             handleSubmit();
         });
     }
+
+    // Add font size slider functionality
+    const fontSizeSlider = document.getElementById('fontSize');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const response = document.getElementById('response');
+
+    fontSizeSlider.addEventListener('input', (e) => {
+        const size = e.target.value;
+        fontSizeValue.textContent = `${size}px`;
+
+        // Update all text elements in the response
+        response.style.setProperty('--base-font-size', `${size}px`);
+    });
 }); 

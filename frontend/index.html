@@ -12,20 +12,25 @@
         <label for="input1">Your Skills and Background</label>
         <input type="text" id="input1" placeholder="Enter your skills and expertise">
 
-        <label for="input2">Secondary Goal</label>
-        <input type="text" id="input2" placeholder="Enter your secondary goal">
+        <label for="input2">Your Background</label>
+        <input type="text" id="input2" placeholder="marketer, have ADHD, love playing D&D">
 
         <label for="input3">Target Customer Description</label>
         <input type="text" id="input3" placeholder="Describe your ideal customer">
 
-        <label for="input4">Additional Requirements</label>
-        <input type="text" id="input4" placeholder="Any other specific requirements">
+        <label for="input4">What is your goal?</label>
+        <input type="text" id="input4" placeholder="build leveraged income streams">
 
         <button type="submit">Generate Business Ideas</button>
     </form>
     <div id="loadingSpinner" class="loading-spinner hidden">
         <div class="spinner"></div>
         <p>Generating business ideas...</p>
+    </div>
+    <div class="size-control">
+        <label for="fontSize">Response Size:</label>
+        <input type="range" id="fontSize" min="10" max="20" value="14" class="slider">
+        <span id="fontSizeValue">14px</span>
     </div>
     <div id="response"></div>
 
