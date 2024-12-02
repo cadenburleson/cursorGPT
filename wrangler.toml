@@ -15,6 +15,9 @@ pages_build_output_dir = "dist"
 [env.production]
 vars = { ENVIRONMENT = "production" }
 
+[logs]
+tail = true
+
 [build]
 command = "npm install && npm run build"
 
