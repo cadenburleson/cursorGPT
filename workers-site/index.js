@@ -112,12 +112,11 @@ async function handleApiRequest(request, env) {
 
     // Handle CORS preflight requests FIRST
     if (request.method === 'OPTIONS') {
-        console.log('Handling OPTIONS preflight request');
         return new Response(null, {
             headers: {
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://cursorgpt.pages.dev',
                 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization',
                 'Access-Control-Max-Age': '86400'
             }
         });
@@ -125,11 +124,15 @@ async function handleApiRequest(request, env) {
 
     // Then handle the actual request
     if (url.pathname === '/api/chat' && request.method === 'POST') {
-        console.log('Handling POST request to /api/chat');
+        console.log('Processing POST request to /api/chat');
         try {
             const body = await request.json();
-            console.log('Request body:', body);
+            console.log('Received body:', JSON.stringify(body));
             const { inputs } = body;
+
+            if (!inputs) {
+                throw new Error('No inputs provided in request body');
+            }
 
             // Make request to OpenAI
             console.log('Making request to OpenAI API');
