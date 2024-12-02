@@ -1,11 +1,6 @@
 name = "business-ideas-generator"
-type = "webpack"
-account_id = "" # You'll get this from Cloudflare
 workers_dev = true
-route = ""
-zone_id = ""
 compatibility_date = "2024-03-26"
-compatibility_flags = ["nodejs_compat"]
 main = "workers-site/index.js"
 
 [site]
